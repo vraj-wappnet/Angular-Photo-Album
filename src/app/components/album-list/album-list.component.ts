@@ -73,14 +73,13 @@
 //     this.albumToDelete = null;
 //   }
 // }
-
 import { Component, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Album } from '../../models/album.model';
 import { StorageService } from '../../services/storage.service';
-import { Modal } from 'bootstrap'; // Import Bootstrap's Modal class
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-album-list',
@@ -91,27 +90,19 @@ import { Modal } from 'bootstrap'; // Import Bootstrap's Modal class
 export class AlbumListComponent implements AfterViewInit {
   albums: Album[] = [];
   newAlbumName: string = '';
-  showDeleteDialog: boolean = false;
-  albumToDelete: Album | null = null;
   showEditModal: boolean = false;
   albumToEdit: Album | null = null;
   albumEditName: string = '';
   editModalInstance: Modal | null = null;
-  deleteModalInstance: Modal | null = null;
 
   constructor(private storageService: StorageService) {
     this.albums = this.storageService.getAlbums();
   }
 
   ngAfterViewInit(): void {
-    // Initialize Bootstrap modals after the view is rendered
     const editModalElement = document.getElementById('editModal');
-    const deleteModalElement = document.getElementById('deleteModal');
     if (editModalElement) {
       this.editModalInstance = new Modal(editModalElement);
-    }
-    if (deleteModalElement) {
-      this.deleteModalInstance = new Modal(deleteModalElement);
     }
   }
 
@@ -161,34 +152,9 @@ export class AlbumListComponent implements AfterViewInit {
     }
   }
 
-  openDeleteDialog(album: Album): void {
-    this.albumToDelete = album;
-    this.showDeleteDialog = true;
-    if (this.deleteModalInstance) {
-      this.deleteModalInstance.show();
-    }
-  }
-
-  confirmDelete(): void {
-    if (this.albumToDelete) {
-      this.albums = this.albums.filter((a) => a.id !== this.albumToDelete!.id);
-      this.storageService.saveAlbums(this.albums);
-      this.closeDeleteDialog();
-    }
-  }
-
-  closeDeleteDialog(): void {
-    this.showDeleteDialog = false;
-    if (this.deleteModalInstance) {
-      this.deleteModalInstance.hide();
-    }
-    this.albumToDelete = null;
-  }
-
-  closeDeleteDialogOnBackdrop(event: Event): void {
-    if ((event.target as HTMLElement).classList.contains('modal')) {
-      this.closeDeleteDialog();
-    }
+  deleteAlbum(album: Album): void {
+    this.albums = this.albums.filter((a) => a.id !== album.id);
+    this.storageService.saveAlbums(this.albums);
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -198,10 +164,6 @@ export class AlbumListComponent implements AfterViewInit {
         this.saveEdit();
       } else if (event.key === 'Escape') {
         this.closeEditModal();
-      }
-    } else if (this.showDeleteDialog) {
-      if (event.key === 'Escape') {
-        this.closeDeleteDialog();
       }
     }
   }
