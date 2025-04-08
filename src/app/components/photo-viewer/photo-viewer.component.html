@@ -1,0 +1,52 @@
+<div
+  class="viewer"
+  *ngIf="album && currentPhoto; else noPhoto"
+  [class.slideshow-mode]="isSlideshowActive"
+>
+  <div class="controls">
+    <button (click)="goBack()" class="back-btn">← Back</button>
+    <button (click)="previousPhoto()" class="nav-btn">Previous</button>
+    <button (click)="nextPhoto()" class="nav-btn">Next</button>
+    <button (click)="toggleSlideshow()" class="slideshow-btn">
+      {{ isSlideshowActive ? "Pause" : "Slideshow" }}
+    </button>
+    <button (click)="resetZoom()" class="reset-btn">Reset</button>
+    <button (click)="toggleFavorite()" class="favorite-btn">
+      {{ currentPhoto.isFavorite ? "★" : "☆" }} Favorite
+    </button>
+  </div>
+
+  <div class="zoom-controls" [hidden]="isSlideshowActive">
+    <button (click)="zoomIn()" class="zoom-btn">+</button>
+    <button (click)="zoomOut()" class="zoom-btn">-</button>
+  </div>
+
+  <div
+    class="photo-container"
+    [style.transform]="
+      'scale(' +
+      scale +
+      ') translate(' +
+      translateX +
+      'px, ' +
+      translateY +
+      'px)'
+    "
+  >
+    <img [src]="currentPhoto.url" [alt]="currentPhoto.title" class="photo" />
+    <div class="photo-info" [hidden]="isSlideshowActive">
+      <h2>{{ currentPhoto.title }}</h2>
+      <p>Added: {{ currentPhoto.dateAdded | date }}</p>
+      <p *ngIf="currentPhoto?.tags?.length">
+        Tags: {{ currentPhoto.tags?.join(", ") || "" }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noPhoto>
+  <div class="error-message">
+    <p>Photo or album not found</p>
+    <a routerLink="/albums">Return to Albums</a>
+  </div>
+</ng-template>

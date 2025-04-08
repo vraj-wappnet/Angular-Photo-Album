@@ -1,0 +1,207 @@
+<div class="album-list container py-4">
+  <!-- Header section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="mb-3 text-primary">My Photo Collections</h2>
+      <p class="text-muted">Organize and manage your photo memories</p>
+    </div>
+  </div>
+
+  <!-- Add Album Form with improved styling -->
+  <div class="add-album-form mb-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Create New Collection</h5>
+        <div class="input-group">
+          <input
+            id="album-name-input"
+            type="text"
+            class="form-control"
+            [(ngModel)]="newAlbumName"
+            placeholder="Enter collection name..."
+            (keyup.enter)="addAlbum()"
+            required
+          />
+          <button
+            class="btn btn-primary"
+            (click)="addAlbum()"
+            [disabled]="!newAlbumName.trim()"
+          >
+            <i class="bi bi-plus-circle me-1"></i>
+            <span class="button-text">Add</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Album Grid with animations and hover effects -->
+  <div
+    class="row row-cols-1 row-cols-md-3 g-4"
+    *ngIf="albums.length > 0; else noAlbums"
+  >
+    <div *ngFor="let album of albums" class="col album-card-container">
+      <div
+        class="card h-100 shadow-sm transition-all hover-shadow"
+        [class.border-primary]="editingAlbumId === album.id"
+      >
+        <!-- View Mode -->
+        <div
+          class="album-item p-3 border-bottom"
+          *ngIf="editingAlbumId !== album.id"
+        >
+          <a
+            [routerLink]="['/albums', album.id]"
+            class="text-decoration-none text-dark d-block"
+          >
+            <div class="album-preview d-flex align-items-center mb-2">
+              <div class="album-thumbnail flex-shrink-0 me-3">
+                <div
+                  class="thumbnail-icon text-center p-3 bg-light rounded-circle"
+                >
+                  <i class="bi bi-images fs-3 text-primary"></i>
+                  <span
+                    class="badge bg-primary position-absolute translate-middle"
+                  >
+                    {{ album.photos.length }}
+                  </span>
+                </div>
+              </div>
+              <div class="album-details flex-grow-1">
+                <h5 class="album-title mb-1 text-primary">{{ album.name }}</h5>
+                <p class="text-muted mb-1">
+                  {{ album.photos.length }} image{{
+                    album.photos.length === 1 ? "" : "s"
+                  }}
+                </p>
+                <p class="mb-0">
+                  <small class="text-muted"
+                    >Created: {{ album.createdDate | date }}</small
+                  >
+                </p>
+              </div>
+            </div>
+          </a>
+          <div class="album-actions mt-2 d-flex gap-2">
+            <button
+              class="btn btn-sm btn-outline-primary w-50"
+              (click)="startEditing(album); $event.preventDefault()"
+            >
+              <i class="bi bi-pencil me-1"></i> Edit
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger w-50"
+              (click)="openDeleteDialog(album); $event.preventDefault()"
+            >
+              <i class="bi bi-trash me-1"></i> Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div class="card-body" *ngIf="editingAlbumId === album.id">
+          <h5 class="card-title mb-3">Edit Collection</h5>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="albumEditName"
+              (keyup.enter)="saveEdit(album)"
+              placeholder="Update collection name"
+              required
+              autofocus
+            />
+            <button class="btn btn-success" (click)="saveEdit(album)">
+              <i class="bi bi-check-circle"></i>
+            </button>
+            <button class="btn btn-secondary" (click)="cancelEdit()">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+          <div class="text-muted small">
+            Press Enter to save or Escape to cancel
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state with improved styling -->
+  <ng-template #noAlbums>
+    <div class="empty-state text-center py-5">
+      <div class="card shadow-sm">
+        <div class="card-body py-5">
+          <div class="empty-icon mb-3">
+            <i class="bi bi-images fs-1 text-muted"></i>
+          </div>
+          <h4 class="mb-3">No collections yet!</h4>
+          <p class="text-muted mb-4">
+            Start by creating your first photo collection using the form above.
+          </p>
+          <div class="suggestions bg-light p-3 rounded">
+            <p class="mb-2"><strong>Suggested collection names:</strong></p>
+            <ul class="list-unstyled">
+              <li>
+                <i class="bi bi-arrow-right-circle me-2"></i>Summer Vacation
+                2025
+              </li>
+              <li>
+                <i class="bi bi-arrow-right-circle me-2"></i>Family Gatherings
+              </li>
+              <li>
+                <i class="bi bi-arrow-right-circle me-2"></i>Pet Adventures
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Delete Confirmation Dialog with improved styling -->
+  <div
+    class="modal fade show"
+    [ngClass]="{ 'd-block': showDeleteDialog, 'd-none': !showDeleteDialog }"
+    tabindex="-1"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Confirm Deletion
+          </h5>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete "<strong>{{
+              albumToDelete?.name
+            }}</strong
+            >"?
+          </p>
+          <div class="alert alert-warning">
+            <small>
+              <i class="bi bi-info-circle me-1"></i>
+              This action is permanent and will delete all photos in this
+              collection.
+            </small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="closeDeleteDialog()"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-danger" (click)="confirmDelete()">
+            <i class="bi bi-trash me-1"></i>
+            Delete Permanently
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Modal backdrop -->
+    <div class="modal-backdrop fade show" *ngIf="showDeleteDialog"></div>
+  </div>
+</div>

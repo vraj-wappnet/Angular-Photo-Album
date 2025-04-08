@@ -1,0 +1,13 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; // Ensures the container takes full viewport height
+    margin: 0; // Remove default margins
+    padding: 0; // Remove default padding
+  }
+  
+  .content {
+    flex: 1 0 auto; // Grows to fill space, doesn't shrink below content height
+    // padding: 20px; // Space around content
+    background: #fff; // Ensure content background is consistent
+  }

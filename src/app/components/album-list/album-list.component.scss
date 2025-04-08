@@ -1,0 +1,446 @@
+.album-list {
+    padding: 40px 60px;
+    background: #1a1a1a;
+    min-height: calc(100vh - 120px);
+    color: #e0e0e0;
+  
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 40px;
+  
+      h1 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        font-weight: 700;
+        color: #ffd700;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+  
+      .instructions {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        color: #b3b3b3;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+    }
+  
+    .add-album-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+      background: #2d2d2d;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      align-items: center; // Vertically center items
+  
+      label.visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+  
+      input {
+        flex: 1 1 auto; // Flexible growth and shrink, auto basis
+        width: 100%; // Ensure it takes full width when wrapped
+        max-width: calc(100% - 110px); // Account for button width and gap
+        padding: clamp(8px, 2vw, 12px) clamp(10px, 3vw, 20px); // Responsive padding
+        border: none;
+        border-radius: 6px;
+        font-size: clamp(14px, 4vw, 16px);
+        background: #3a3a3a;
+        color: #e0e0e0;
+        box-sizing: border-box; // Include padding in width calculation
+        transition: background 0.3s ease;
+  
+        &:focus {
+          outline: none;
+          background: #444444;
+        }
+  
+        &::placeholder {
+          color: #888888;
+        }
+      }
+  
+      button {
+        flex: 0 0 auto; // Prevent button from shrinking or growing excessively
+        padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 25px);
+        background: linear-gradient(90deg, #ffd700, #ffca2c);
+        color: #1a1a1a;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: clamp(14px, 4vw, 16px);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.2s ease, background 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+        &:disabled {
+          background: #666666;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+  
+        &:hover:not(:disabled) {
+          transform: translateY(-2px);
+          background: linear-gradient(90deg, #ffca2c, #ffd700);
+        }
+  
+        .button-text {
+          font-weight: 600;
+        }
+  
+        .button-icon {
+          font-size: 18px;
+          color: #1a1a1a;
+        }
+      }
+    }
+  
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+  
+      .album-card {
+        background: #2d2d2d;
+        border: 1px solid #3a3a3a;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        position: relative;
+  
+        &.editing {
+          background: #333333;
+          border-color: #ffd700;
+        }
+  
+        .album-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+        }
+  
+        .album-link {
+          text-decoration: none;
+          color: inherit;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+  
+        .album-cover {
+          padding: 15px;
+          background: #3a3a3a;
+          border-radius: 8px;
+          margin-bottom: 15px;
+          transition: background 0.3s ease;
+  
+          h2 {
+            margin: 0 0 10px;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            color: #ffd700;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+  
+          .photo-count {
+            margin: 0;
+            font-size: clamp(12px, 3vw, 14px);
+            color: #b3b3b3;
+          }
+        }
+  
+        .created-date {
+          margin: 0;
+          font-size: clamp(11px, 3vw, 13px);
+          color: #95a5a6;
+        }
+  
+        .album-actions {
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+          padding-top: 10px;
+        }
+  
+        .edit-btn,
+        .delete-btn {
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          font-size: clamp(16px, 4vw, 18px);
+          transition: color 0.3s ease, transform 0.2s ease;
+  
+          &.edit-btn {
+            color: #ffd700;
+            &:hover {
+              color: #ffca2c;
+              transform: scale(1.2);
+            }
+          }
+  
+          &.delete-btn {
+            color: #ff4444;
+            &:hover {
+              color: #ff6666;
+              transform: scale(1.2);
+            }
+          }
+        }
+  
+        .edit-form {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+  
+          .edit-input {
+            width: 100%; // Full width of container
+            padding: clamp(8px, 2vw, 10px);
+            border: none;
+            border-radius: 6px;
+            font-size: clamp(14px, 4vw, 16px);
+            background: #444444;
+            color: #e0e0e0;
+            box-sizing: border-box; // Include padding in width
+            transition: background 0.3s ease;
+  
+            &:focus {
+              outline: none;
+              background: #555555;
+            }
+  
+            &::placeholder {
+              color: #888888;
+            }
+          }
+  
+          .edit-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+  
+            .save-btn,
+            .cancel-btn {
+              background: transparent;
+              border: none;
+              cursor: pointer;
+              font-size: clamp(16px, 4vw, 18px);
+              transition: color 0.3s ease, transform 0.2s ease;
+  
+              &.save-btn {
+                color: #00cc00;
+                &:hover {
+                  color: #00ff00;
+                  transform: scale(1.2);
+                }
+              }
+  
+              &.cancel-btn {
+                color: #ff4444;
+                &:hover {
+                  color: #ff6666;
+                  transform: scale(1.2);
+                }
+              }
+            }
+          }
+        }
+  
+        &:hover:not(.editing) {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+          .album-cover {
+            background: #444444;
+          }
+        }
+      }
+    }
+  
+    .no-albums {
+      text-align: center;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      color: #b3b3b3;
+      padding: 30px;
+      background: #2d2d2d;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      margin: 0 auto;
+  
+      p {
+        margin: 10px 0;
+      }
+  
+      .hint {
+        font-size: clamp(0.8rem, 3vw, 0.9rem);
+        color: #95a5a6;
+        font-style: italic;
+      }
+    }
+  
+    .delete-dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+  
+      .dialog-content {
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        width: clamp(250px, 80vw, 300px);
+  
+        h2 {
+          font-size: clamp(1.2rem, 4vw, 1.5rem);
+          color: #ffd700;
+          margin-bottom: 15px;
+        }
+  
+        p {
+          font-size: clamp(0.9rem, 3vw, 1rem);
+          color: #e0e0e0;
+          margin-bottom: 20px;
+        }
+  
+        .dialog-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+  
+          button {
+            padding: 8px 20px;
+            background: linear-gradient(90deg, #ffd700, #ffca2c);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: clamp(14px, 4vw, 16px);
+            transition: transform 0.2s ease, background 0.3s ease;
+  
+            &:hover {
+              transform: translateY(-2px);
+              background: linear-gradient(90deg, #ffca2c, #ffd700);
+            }
+  
+            &:active {
+              transform: scale(0.98);
+            }
+          }
+        }
+      }
+    }
+  
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      padding: 20px 30px;
+  
+      .welcome-section {
+        margin-bottom: 30px;
+      }
+  
+      .add-album-form {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+  
+        input {
+          max-width: 100%; // Full width on tablets
+          width: 100%;
+        }
+  
+        button {
+          width: 100%; // Full width button
+          justify-content: center; // Center contents
+        }
+      }
+  
+      .album-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+      }
+  
+      .album-card {
+        padding: 15px;
+  
+        .edit-form {
+          .edit-input {
+            width: 100%; // Ensure full width
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 480px) {
+      padding: 15px 20px;
+  
+      .welcome-section {
+        margin-bottom: 20px;
+      }
+  
+      .add-album-form {
+        padding: 8px;
+        gap: 8px;
+  
+        input {
+          max-width: 100%;
+          width: 100%;
+        }
+  
+        button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+  
+      .album-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+  
+      .album-card {
+        padding: 10px;
+  
+        .album-actions,
+        .edit-actions {
+          gap: 8px;
+        }
+  
+        .edit-form {
+          .edit-input {
+            width: 100%;
+          }
+        }
+      }
+  
+      .no-albums {
+        padding: 20px;
+      }
+    }
+  }

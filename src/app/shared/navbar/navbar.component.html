@@ -1,0 +1,23 @@
+<!-- navbar.component.html -->
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/albums">
+      {{ title }}
+    </a>
+
+    <!-- Toggler button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="toggleMenu()"
+      aria-controls="navbarNav"
+      [attr.aria-expanded]="menuOpen"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu items -->
+  </div>
+</nav>

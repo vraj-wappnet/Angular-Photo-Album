@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+/* styles.scss */
+body {
+    margin: 0; // Remove default body margins
+    padding: 0; // Remove default body padding
+    min-height: 100vh; // Ensure body takes full height
+    display: flex;
+    flex-direction: column;
+  }
+  
+  html {
+    height: 100%; // Ensure html takes full height
+  }
