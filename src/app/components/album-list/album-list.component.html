@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <!-- Add Album Form with improved styling -->
+  <!-- Add Album Form -->
   <div class="add-album-form mb-4">
     <div class="card shadow-sm">
       <div class="card-body">
@@ -35,21 +35,14 @@
     </div>
   </div>
 
-  <!-- Album Grid with animations and hover effects -->
+  <!-- Album Grid -->
   <div
     class="row row-cols-1 row-cols-md-3 g-4"
     *ngIf="albums.length > 0; else noAlbums"
   >
     <div *ngFor="let album of albums" class="col album-card-container">
-      <div
-        class="card h-100 shadow-sm transition-all hover-shadow"
-        [class.border-primary]="editingAlbumId === album.id"
-      >
-        <!-- View Mode -->
-        <div
-          class="album-item p-3 border-bottom"
-          *ngIf="editingAlbumId !== album.id"
-        >
+      <div class="card h-100 shadow-sm transition-all hover-shadow">
+        <div class="album-item p-3 border-bottom">
           <a
             [routerLink]="['/albums', album.id]"
             class="text-decoration-none text-dark d-block"
@@ -76,7 +69,7 @@
                 </p>
                 <p class="mb-0">
                   <small class="text-muted"
-                    >Created: {{ album.createdDate | date }}</small
+                    >Created at: {{ album.createdDate | date }}</small
                   >
                 </p>
               </div>
@@ -85,7 +78,7 @@
           <div class="album-actions mt-2 d-flex gap-2">
             <button
               class="btn btn-sm btn-outline-primary w-50"
-              (click)="startEditing(album); $event.preventDefault()"
+              (click)="openEditModal(album); $event.preventDefault()"
             >
               <i class="bi bi-pencil me-1"></i> Edit
             </button>
@@ -97,36 +90,11 @@
             </button>
           </div>
         </div>
-
-        <!-- Edit Mode -->
-        <div class="card-body" *ngIf="editingAlbumId === album.id">
-          <h5 class="card-title mb-3">Edit Collection</h5>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="albumEditName"
-              (keyup.enter)="saveEdit(album)"
-              placeholder="Update collection name"
-              required
-              autofocus
-            />
-            <button class="btn btn-success" (click)="saveEdit(album)">
-              <i class="bi bi-check-circle"></i>
-            </button>
-            <button class="btn btn-secondary" (click)="cancelEdit()">
-              <i class="bi bi-x-circle"></i>
-            </button>
-          </div>
-          <div class="text-muted small">
-            Press Enter to save or Escape to cancel
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Empty state with improved styling -->
+  <!-- Empty state -->
   <ng-template #noAlbums>
     <div class="empty-state text-center py-5">
       <div class="card shadow-sm">
@@ -158,50 +126,128 @@
     </div>
   </ng-template>
 
-  <!-- Delete Confirmation Dialog with improved styling -->
+  <!-- Edit Album Modal -->
   <div
-    class="modal fade show"
-    [ngClass]="{ 'd-block': showDeleteDialog, 'd-none': !showDeleteDialog }"
+    class="modal fade"
+    id="editModal"
     tabindex="-1"
+    [ngClass]="{ show: showEditModal }"
+    (click)="closeEditModalOnBackdrop($event)"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
+        <div class="modal-header bg-primary text-white">
           <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle me-2"></i>
-            Confirm Deletion
+            <i class="bi bi-pencil-square me-2"></i> Edit Collection
           </h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            (click)="closeEditModal()"
+          ></button>
         </div>
         <div class="modal-body">
-          <p>
-            Are you sure you want to delete "<strong>{{
-              albumToDelete?.name
-            }}</strong
-            >"?
-          </p>
-          <div class="alert alert-warning">
-            <small>
-              <i class="bi bi-info-circle me-1"></i>
-              This action is permanent and will delete all photos in this
-              collection.
-            </small>
+          <div class="mb-3">
+            <label for="edit-album-name" class="form-label"
+              >Collection Name</label
+            >
+            <input
+              id="edit-album-name"
+              type="text"
+              class="form-control"
+              [(ngModel)]="albumEditName"
+              (keyup.enter)="saveEdit()"
+              placeholder="Update collection name"
+              required
+              autofocus
+            />
           </div>
         </div>
         <div class="modal-footer">
+          <button class="btn btn-outline-secondary" (click)="closeEditModal()">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+          </button>
+          <button class="btn btn-success" (click)="saveEdit()">
+            <i class="bi bi-check-circle me-1"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Dialog -->
+  <div
+    class="modal fade"
+    id="deleteModal"
+    tabindex="-1"
+    [ngClass]="{ show: showDeleteDialog }"
+    (click)="closeDeleteDialogOnBackdrop($event)"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white py-3">
+          <h5 class="modal-title d-flex align-items-center">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            Confirm Deletion
+          </h5>
           <button
-            class="btn btn-outline-secondary"
+            type="button"
+            class="btn-close btn-close-white"
+            aria-label="Close"
+            (click)="closeDeleteDialog()"
+          ></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <p class="mb-0">
+            Are you sure you want to delete this item? This action cannot be
+            undone.
+          </p>
+        </div>
+
+        <div class="modal-footer border-top-0 pt-0 pb-3 px-4">
+          <button
+            class="btn btn-outline-secondary px-4"
             (click)="closeDeleteDialog()"
           >
             Cancel
           </button>
-          <button class="btn btn-danger" (click)="confirmDelete()">
-            <i class="bi bi-trash me-1"></i>
+          <button
+            class="btn btn-danger px-4 d-flex align-items-center"
+            (click)="confirmDelete()"
+          >
+            <i class="bi bi-trash-fill me-2"></i>
             Delete Permanently
           </button>
         </div>
       </div>
     </div>
-    <!-- Modal backdrop -->
-    <div class="modal-backdrop fade show" *ngIf="showDeleteDialog"></div>
   </div>
 </div>
+
+<style>
+  .modal.fade.show {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .modal.fade {
+    opacity: 0;
+  }
+
+  .modal-backdrop.fade.show {
+    opacity: 0.5;
+  }
+
+  .modal-backdrop.fade {
+    opacity: 0;
+  }
+
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+
+  .hover-shadow:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+</style>
