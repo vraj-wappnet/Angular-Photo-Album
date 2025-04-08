@@ -1,0 +1,60 @@
+.photo-card {
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #2d2d2d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.photo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+.photo-card .photo-image {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+  border-radius: 8px 8px 0 0;
+  transition: opacity 0.3s ease;
+}
+.photo-card .photo-image:hover {
+  opacity: 0.9;
+}
+.photo-card .photo-details {
+  padding: 15px;
+  text-align: center;
+  background: #1a1a1a;
+}
+.photo-card .photo-details h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #ffd700;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.photo-card .photo-details p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #b3b3b3;
+}
+.photo-card .photo-details .favorite-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  color: #ffd700;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+.photo-card .photo-details .favorite-btn:hover {
+  color: #ffaa00;
+  transform: scale(1.1);
+}
+.photo-card .photo-details .favorite-btn:active {
+  transform: scale(0.95);
+}/*# sourceMappingURL=photo-card.component.css.map */

@@ -1,0 +1,786 @@
+@charset "UTF-8";
+.album-detail {
+  padding: clamp(15px, 4vw, 40px) clamp(20px, 5vw, 60px);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #e0e0e0;
+  min-height: calc(100vh - 120px);
+  overflow-x: hidden;
+  /* Responsive Design */
+  /* Large Screens (Laptops, > 1024px) */
+  /* Tablets (768px - 1024px) */
+  /* Mobile (below 768px) */
+  /* Small Mobile (below 480px) */
+}
+.album-detail .header-section {
+  text-align: center;
+  margin-bottom: clamp(20px, 5vw, 40px);
+  padding: clamp(10px, 3vw, 20px);
+  background: rgba(45, 45, 45, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+.album-detail .header-section .album-title {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: #ffd700;
+  margin-bottom: clamp(10px, 2vw, 15px);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+.album-detail .header-section .welcome-section h2 {
+  font-size: clamp(1rem, 4vw, 1.8rem);
+  font-weight: 600;
+  color: #ffca2c;
+  margin-bottom: clamp(5px, 1.5vw, 10px);
+  text-transform: uppercase;
+}
+.album-detail .header-section .welcome-section .instructions {
+  font-size: clamp(0.8rem, 3vw, 1.1rem);
+  color: #b3b3b3;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.album-detail .content-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(15px, 3vw, 30px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.album-detail .content-grid .add-photo-section,
+.album-detail .content-grid .controls-section,
+.album-detail .content-grid .photo-grid-section {
+  background: rgba(45, 45, 45, 0.95);
+  border-radius: 12px;
+  padding: clamp(10px, 3vw, 20px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+.album-detail .content-grid .add-photo-section h3,
+.album-detail .content-grid .controls-section h3,
+.album-detail .content-grid .photo-grid-section h3 {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: #ffd700;
+  margin-bottom: clamp(10px, 2vw, 15px);
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.album-detail .content-grid .add-photo-section:hover,
+.album-detail .content-grid .controls-section:hover,
+.album-detail .content-grid .photo-grid-section:hover {
+  transform: translateY(-5px);
+}
+.album-detail .content-grid .add-photo-section {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 15px);
+}
+.album-detail .content-grid .add-photo-section .add-photo-form input {
+  width: 100%;
+  padding: clamp(6px, 2vw, 12px);
+  border: none;
+  border-radius: 8px;
+  font-size: clamp(12px, 4vw, 16px);
+  background: #3a3a3a;
+  color: #e0e0e0;
+  box-sizing: border-box;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form input:focus {
+  outline: none;
+  background: #444444;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+.album-detail .content-grid .add-photo-section .add-photo-form input::-moz-placeholder {
+  color: #888888;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form input::placeholder {
+  color: #888888;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form .add-tags-container {
+  width: 100%;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form .add-tags-container .current-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(5px, 1.5vw, 8px);
+  margin-bottom: clamp(5px, 1.5vw, 8px);
+}
+.album-detail .content-grid .add-photo-section .add-photo-form .add-tags-container .current-tags .tag {
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  padding: clamp(3px, 1vw, 4px) clamp(6px, 2vw, 10px);
+  border-radius: 20px;
+  font-size: clamp(10px, 3vw, 14px);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form .add-tags-container .current-tags .tag:hover {
+  transform: scale(1.05);
+}
+.album-detail .content-grid .add-photo-section .add-photo-form .add-tags-container .current-tags .tag .remove-tag {
+  margin-left: clamp(3px, 1vw, 6px);
+  font-size: clamp(12px, 3vw, 14px);
+}
+.album-detail .content-grid .add-photo-section .add-photo-form .add-tags-container input {
+  width: 100%;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form button {
+  padding: clamp(6px, 2vw, 12px) clamp(10px, 3vw, 25px);
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: clamp(12px, 4vw, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(5px, 1.5vw, 8px);
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form button:disabled {
+  background: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
+}
+.album-detail .content-grid .add-photo-section .add-photo-form button .button-text {
+  font-weight: 600;
+}
+.album-detail .content-grid .add-photo-section .add-photo-form button .button-icon {
+  font-size: clamp(14px, 4vw, 18px);
+}
+.album-detail .content-grid .controls-section {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+.album-detail .content-grid .controls-section .controls {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 15px);
+}
+.album-detail .content-grid .controls-section .controls .sort-controls,
+.album-detail .content-grid .controls-section .controls .filter-controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 1.5vw, 10px);
+}
+.album-detail .content-grid .controls-section .controls .sort-controls label,
+.album-detail .content-grid .controls-section .controls .filter-controls label {
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  color: #b3b3b3;
+}
+.album-detail .content-grid .controls-section .controls .sort-controls select,
+.album-detail .content-grid .controls-section .controls .sort-controls input,
+.album-detail .content-grid .controls-section .controls .filter-controls select,
+.album-detail .content-grid .controls-section .controls .filter-controls input {
+  flex: 1;
+  padding: clamp(6px, 2vw, 10px);
+  border: none;
+  border-radius: 8px;
+  background: #3a3a3a;
+  color: #e0e0e0;
+  font-size: clamp(12px, 4vw, 16px);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.album-detail .content-grid .controls-section .controls .sort-controls select:focus,
+.album-detail .content-grid .controls-section .controls .sort-controls input:focus,
+.album-detail .content-grid .controls-section .controls .filter-controls select:focus,
+.album-detail .content-grid .controls-section .controls .filter-controls input:focus {
+  outline: none;
+  background: #444444;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+.album-detail .content-grid .controls-section .controls .sort-controls select::-moz-placeholder, .album-detail .content-grid .controls-section .controls .sort-controls input::-moz-placeholder, .album-detail .content-grid .controls-section .controls .filter-controls select::-moz-placeholder, .album-detail .content-grid .controls-section .controls .filter-controls input::-moz-placeholder {
+  color: #888888;
+}
+.album-detail .content-grid .controls-section .controls .sort-controls select::placeholder,
+.album-detail .content-grid .controls-section .controls .sort-controls input::placeholder,
+.album-detail .content-grid .controls-section .controls .filter-controls select::placeholder,
+.album-detail .content-grid .controls-section .controls .filter-controls input::placeholder {
+  color: #888888;
+}
+.album-detail .content-grid .controls-section .controls .bulk-actions button {
+  width: 100%;
+  padding: clamp(6px, 2vw, 10px) clamp(10px, 3vw, 20px);
+  background: linear-gradient(90deg, #ff4444, #cc0000);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: clamp(12px, 4vw, 16px);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.album-detail .content-grid .controls-section .controls .bulk-actions button:hover {
+  background: linear-gradient(90deg, #cc0000, #ff4444);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 68, 68, 0.5);
+}
+.album-detail .content-grid .photo-grid-section {
+  grid-column: 2/3;
+  grid-row: 1/3;
+  max-height: 1000px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffd700 #3a3a3a;
+}
+.album-detail .content-grid .photo-grid-section::-webkit-scrollbar {
+  width: 8px;
+}
+.album-detail .content-grid .photo-grid-section::-webkit-scrollbar-track {
+  background: #3a3a3a;
+  border-radius: 4px;
+}
+.album-detail .content-grid .photo-grid-section::-webkit-scrollbar-thumb {
+  background: #ffd700;
+  border-radius: 4px;
+  -webkit-transition: background 0.3s ease;
+  transition: background 0.3s ease;
+}
+.album-detail .content-grid .photo-grid-section::-webkit-scrollbar-thumb:hover {
+  background: #ffca2c;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: clamp(10px, 2vw, 20px);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card {
+  position: relative;
+  background: #2d2d2d;
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+  padding: clamp(8px, 2vw, 15px);
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  cursor: move;
+  overflow: hidden;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .custom-checkbox {
+  position: absolute;
+  top: clamp(5px, 1.5vw, 10px);
+  left: clamp(5px, 1.5vw, 10px);
+  width: clamp(14px, 4vw, 18px);
+  height: clamp(14px, 4vw, 18px);
+  background: #3a3a3a;
+  border: 2px solid #ffd700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .custom-checkbox.checked {
+  background: #ffd700;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .custom-checkbox.checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #1a1a1a;
+  font-size: clamp(8px, 3vw, 12px);
+  font-weight: bold;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .custom-checkbox:hover:not(.checked) {
+  background: #444444;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-image {
+  max-width: 100%;
+  height: clamp(120px, 35vw, 200px);
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-info {
+  padding-top: clamp(5px, 1.5vw, 10px);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-info .photo-title {
+  margin: 0 0 clamp(3px, 1vw, 5px);
+  font-size: clamp(0.8rem, 3vw, 1.1rem);
+  color: #ffd700;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-info .photo-date {
+  margin: 0 0 clamp(3px, 1vw, 5px);
+  font-size: clamp(10px, 3vw, 13px);
+  color: #95a5a6;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-info .photo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(5px, 1.5vw, 8px);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-info .photo-tags .tag {
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  padding: clamp(3px, 1vw, 4px) clamp(6px, 2vw, 10px);
+  border-radius: 20px;
+  font-size: clamp(0.65rem, 2.5vw, 0.85rem);
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .photo-info .photo-tags .tag:hover {
+  transform: scale(1.05);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group {
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 15px);
+  margin-top: clamp(5px, 1.5vw, 10px);
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group .edit-button,
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group .delete-button {
+  padding: clamp(4px, 1.5vw, 8px) clamp(6px, 2vw, 15px);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: clamp(10px, 3vw, 14px);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group .edit-button {
+  background: #666666;
+  color: #fff;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group .edit-button:hover {
+  transform: translateY(-2px);
+  background: #555555;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group .delete-button {
+  background: linear-gradient(90deg, #ff4444, #cc0000);
+  color: #fff;
+}
+.album-detail .content-grid .photo-grid-section .photo-grid .photo-card .button-group .delete-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #cc0000, #ff4444);
+}
+.album-detail .content-grid .photo-grid-section .no-photos-message {
+  text-align: center;
+  padding: clamp(15px, 4vw, 30px);
+  background: rgba(56, 54, 54, 0.95);
+  border-radius: 8px;
+  margin: clamp(10px, 2vw, 20px) 0;
+  color: #e0e0e0;
+}
+.album-detail .content-grid .photo-grid-section .no-photos-message h4 {
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  margin-bottom: clamp(5px, 1.5vw, 10px);
+  color: #ffd700;
+}
+.album-detail .content-grid .photo-grid-section .no-photos-message p {
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  margin-bottom: clamp(8px, 2vw, 15px);
+}
+.album-detail .content-grid .photo-grid-section .no-photos-message .sad-camera {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  display: block;
+  margin-top: clamp(5px, 1.5vw, 10px);
+  animation: wiggle 1s infinite;
+}
+.album-detail .content-grid .edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.album-detail .content-grid .edit-modal .modal-content {
+  background: #2d2d2d;
+  padding: clamp(10px, 3vw, 20px);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  width: clamp(280px, 90vw, 400px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 15px);
+}
+.album-detail .content-grid .edit-modal .modal-content h3 {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: #ffd700;
+  margin-bottom: clamp(5px, 1.5vw, 10px);
+  font-weight: 600;
+}
+.album-detail .content-grid .edit-modal .modal-content input {
+  width: 100%;
+  padding: clamp(6px, 2vw, 12px);
+  border: none;
+  border-radius: 8px;
+  font-size: clamp(12px, 4vw, 16px);
+  background: #3a3a3a;
+  color: #e0e0e0;
+  box-sizing: border-box;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.album-detail .content-grid .edit-modal .modal-content input:focus {
+  outline: none;
+  background: #444444;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+.album-detail .content-grid .edit-modal .modal-content input::-moz-placeholder {
+  color: #888888;
+}
+.album-detail .content-grid .edit-modal .modal-content input::placeholder {
+  color: #888888;
+}
+.album-detail .content-grid .edit-modal .modal-content .edit-tags-container {
+  width: 100%;
+}
+.album-detail .content-grid .edit-modal .modal-content .edit-tags-container .current-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(5px, 1.5vw, 8px);
+  margin-bottom: clamp(5px, 1.5vw, 8px);
+}
+.album-detail .content-grid .edit-modal .modal-content .edit-tags-container .current-tags .tag {
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  padding: clamp(3px, 1vw, 4px) clamp(6px, 2vw, 10px);
+  border-radius: 20px;
+  font-size: clamp(10px, 3vw, 14px);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.album-detail .content-grid .edit-modal .modal-content .edit-tags-container .current-tags .tag .remove-tag {
+  margin-left: clamp(3px, 1vw, 6px);
+  font-size: clamp(12px, 3vw, 14px);
+}
+.album-detail .content-grid .edit-modal .modal-content .edit-tags-container input {
+  width: 100%;
+}
+.album-detail .content-grid .edit-modal .modal-content .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(8px, 2vw, 15px);
+}
+.album-detail .content-grid .edit-modal .modal-content .modal-actions .save-button,
+.album-detail .content-grid .edit-modal .modal-content .modal-actions .cancel-button {
+  flex: 1;
+  padding: clamp(6px, 2vw, 12px);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: clamp(12px, 4vw, 16px);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.album-detail .content-grid .edit-modal .modal-content .modal-actions .save-button {
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+}
+.album-detail .content-grid .edit-modal .modal-content .modal-actions .save-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+}
+.album-detail .content-grid .edit-modal .modal-content .modal-actions .cancel-button {
+  background: #666666;
+  color: #fff;
+}
+.album-detail .content-grid .edit-modal .modal-content .modal-actions .cancel-button:hover {
+  transform: translateY(-2px);
+  background: #555555;
+}
+.album-detail .content-grid .error-message {
+  text-align: center;
+  padding: clamp(15px, 4vw, 30px);
+  background: #2d2d2d;
+  border-radius: 12px;
+  color: #e0e0e0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  max-width: clamp(300px, 80vw, 500px);
+  margin: clamp(20px, 5vw, 50px) auto;
+}
+.album-detail .content-grid .error-message p {
+  margin: 0 0 clamp(10px, 2vw, 15px);
+  font-size: clamp(0.9rem, 4vw, 1.2rem);
+}
+.album-detail .content-grid .error-message a {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.album-detail .content-grid .error-message a:hover {
+  color: #ffca2c;
+  text-decoration: underline;
+}
+@media (min-width: 1025px) {
+  .album-detail .content-grid {
+    grid-template-columns: 1fr 2fr;
+  }
+  .album-detail .photo-grid-section .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+@media (max-width: 1024px) {
+  .album-detail .content-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .album-detail .content-grid .add-photo-section {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+  .album-detail .content-grid .controls-section {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .album-detail .content-grid .photo-grid-section {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    max-height: calc(100vh - clamp(300px, 60vh, 450px));
+  }
+  .album-detail .photo-grid-section .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  .album-detail .edit-modal .modal-content {
+    width: clamp(300px, 80vw, 450px);
+  }
+}
+@media (max-width: 768px) {
+  .album-detail {
+    padding: clamp(10px, 3vw, 20px);
+  }
+  .album-detail .header-section {
+    padding: clamp(8px, 2vw, 15px);
+    margin-bottom: clamp(15px, 4vw, 25px);
+  }
+  .album-detail .content-grid {
+    gap: clamp(10px, 2vw, 20px);
+  }
+  .album-detail .content-grid .add-photo-section,
+  .album-detail .content-grid .controls-section,
+  .album-detail .content-grid .photo-grid-section {
+    padding: clamp(8px, 2vw, 15px);
+  }
+  .album-detail .content-grid .add-photo-section .add-photo-form,
+  .album-detail .content-grid .add-photo-section .controls,
+  .album-detail .content-grid .controls-section .add-photo-form,
+  .album-detail .content-grid .controls-section .controls,
+  .album-detail .content-grid .photo-grid-section .add-photo-form,
+  .album-detail .content-grid .photo-grid-section .controls {
+    gap: clamp(8px, 2vw, 12px);
+  }
+  .album-detail .content-grid .add-photo-section .add-photo-form .sort-controls,
+  .album-detail .content-grid .add-photo-section .add-photo-form .filter-controls,
+  .album-detail .content-grid .add-photo-section .controls .sort-controls,
+  .album-detail .content-grid .add-photo-section .controls .filter-controls,
+  .album-detail .content-grid .controls-section .add-photo-form .sort-controls,
+  .album-detail .content-grid .controls-section .add-photo-form .filter-controls,
+  .album-detail .content-grid .controls-section .controls .sort-controls,
+  .album-detail .content-grid .controls-section .controls .filter-controls,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .sort-controls,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .filter-controls,
+  .album-detail .content-grid .photo-grid-section .controls .sort-controls,
+  .album-detail .content-grid .photo-grid-section .controls .filter-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(5px, 1vw, 8px);
+  }
+  .album-detail .content-grid .add-photo-section .add-photo-form .sort-controls label,
+  .album-detail .content-grid .add-photo-section .add-photo-form .filter-controls label,
+  .album-detail .content-grid .add-photo-section .controls .sort-controls label,
+  .album-detail .content-grid .add-photo-section .controls .filter-controls label,
+  .album-detail .content-grid .controls-section .add-photo-form .sort-controls label,
+  .album-detail .content-grid .controls-section .add-photo-form .filter-controls label,
+  .album-detail .content-grid .controls-section .controls .sort-controls label,
+  .album-detail .content-grid .controls-section .controls .filter-controls label,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .sort-controls label,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .filter-controls label,
+  .album-detail .content-grid .photo-grid-section .controls .sort-controls label,
+  .album-detail .content-grid .photo-grid-section .controls .filter-controls label {
+    margin-bottom: clamp(3px, 1vw, 5px);
+  }
+  .album-detail .content-grid .add-photo-section .add-photo-form .sort-controls select,
+  .album-detail .content-grid .add-photo-section .add-photo-form .sort-controls input,
+  .album-detail .content-grid .add-photo-section .add-photo-form .filter-controls select,
+  .album-detail .content-grid .add-photo-section .add-photo-form .filter-controls input,
+  .album-detail .content-grid .add-photo-section .controls .sort-controls select,
+  .album-detail .content-grid .add-photo-section .controls .sort-controls input,
+  .album-detail .content-grid .add-photo-section .controls .filter-controls select,
+  .album-detail .content-grid .add-photo-section .controls .filter-controls input,
+  .album-detail .content-grid .controls-section .add-photo-form .sort-controls select,
+  .album-detail .content-grid .controls-section .add-photo-form .sort-controls input,
+  .album-detail .content-grid .controls-section .add-photo-form .filter-controls select,
+  .album-detail .content-grid .controls-section .add-photo-form .filter-controls input,
+  .album-detail .content-grid .controls-section .controls .sort-controls select,
+  .album-detail .content-grid .controls-section .controls .sort-controls input,
+  .album-detail .content-grid .controls-section .controls .filter-controls select,
+  .album-detail .content-grid .controls-section .controls .filter-controls input,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .sort-controls select,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .sort-controls input,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .filter-controls select,
+  .album-detail .content-grid .photo-grid-section .add-photo-form .filter-controls input,
+  .album-detail .content-grid .photo-grid-section .controls .sort-controls select,
+  .album-detail .content-grid .photo-grid-section .controls .sort-controls input,
+  .album-detail .content-grid .photo-grid-section .controls .filter-controls select,
+  .album-detail .content-grid .photo-grid-section .controls .filter-controls input {
+    width: 100%;
+  }
+  .album-detail .content-grid .add-photo-section .add-photo-form button,
+  .album-detail .content-grid .add-photo-section .controls button,
+  .album-detail .content-grid .controls-section .add-photo-form button,
+  .album-detail .content-grid .controls-section .controls button,
+  .album-detail .content-grid .photo-grid-section .add-photo-form button,
+  .album-detail .content-grid .photo-grid-section .controls button {
+    width: 100%;
+    justify-content: center;
+  }
+  .album-detail .content-grid .photo-grid-section {
+    max-height: calc(100vh - clamp(250px, 50vh, 400px));
+  }
+  .album-detail .content-grid .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: clamp(8px, 2vw, 15px);
+  }
+  .album-detail .edit-modal {
+    padding: clamp(5px, 2vw, 10px);
+  }
+  .album-detail .edit-modal .modal-content {
+    width: clamp(260px, 95vw, 350px);
+    padding: clamp(8px, 2vw, 15px);
+  }
+  .album-detail .edit-modal .modal-content .modal-actions {
+    gap: clamp(5px, 1.5vw, 10px);
+  }
+  .album-detail .no-photos-message {
+    padding: clamp(10px, 3vw, 20px);
+  }
+}
+@media (max-width: 480px) {
+  .album-detail {
+    padding: clamp(8px, 2vw, 15px);
+  }
+  .album-detail .header-section {
+    padding: clamp(6px, 1.5vw, 12px);
+    margin-bottom: clamp(10px, 3vw, 20px);
+  }
+  .album-detail .header-section .album-title {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+  }
+  .album-detail .header-section .welcome-section h2 {
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
+  }
+  .album-detail .header-section .welcome-section .instructions {
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
+  }
+  .album-detail .content-grid {
+    gap: clamp(8px, 2vw, 15px);
+  }
+  .album-detail .content-grid .add-photo-section,
+  .album-detail .content-grid .controls-section,
+  .album-detail .content-grid .photo-grid-section {
+    padding: clamp(6px, 1.5vw, 12px);
+  }
+  .album-detail .content-grid .add-photo-section h3,
+  .album-detail .content-grid .controls-section h3,
+  .album-detail .content-grid .photo-grid-section h3 {
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  }
+  .album-detail .content-grid .photo-grid-section {
+    max-height: calc(100vh - clamp(200px, 45vh, 350px));
+  }
+  .album-detail .content-grid .photo-grid {
+    grid-template-columns: 1fr; /* Single column for very small screens */
+    gap: clamp(5px, 1.5vw, 10px);
+  }
+  .album-detail .content-grid .photo-grid .photo-card {
+    padding: clamp(6px, 1.5vw, 10px);
+  }
+  .album-detail .content-grid .photo-grid .photo-card .photo-image {
+    height: clamp(100px, 30vw, 150px);
+  }
+  .album-detail .content-grid .photo-grid .photo-card .button-group {
+    flex-direction: column;
+    gap: clamp(5px, 1vw, 8px);
+  }
+  .album-detail .content-grid .photo-grid .photo-card .button-group .edit-button,
+  .album-detail .content-grid .photo-grid .photo-card .button-group .delete-button {
+    width: 100%;
+  }
+  .album-detail .edit-modal .modal-content {
+    width: 95vw;
+    padding: clamp(6px, 1.5vw, 10px);
+  }
+  .album-detail .edit-modal .modal-content h3 {
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  }
+  .album-detail .edit-modal .modal-content input {
+    padding: clamp(5px, 1.5vw, 10px);
+    font-size: clamp(11px, 3vw, 14px);
+  }
+  .album-detail .edit-modal .modal-content .modal-actions {
+    flex-direction: column;
+    gap: clamp(5px, 1vw, 8px);
+  }
+  .album-detail .edit-modal .modal-content .modal-actions .save-button,
+  .album-detail .edit-modal .modal-content .modal-actions .cancel-button {
+    width: 100%;
+    padding: clamp(5px, 1.5vw, 10px);
+    font-size: clamp(11px, 3vw, 14px);
+  }
+  .album-detail .error-message {
+    padding: clamp(10px, 3vw, 20px);
+    margin: clamp(10px, 3vw, 30px) auto;
+    max-width: clamp(250px, 90vw, 400px);
+  }
+  .album-detail .no-photos-message {
+    padding: clamp(8px, 2vw, 15px);
+  }
+  .album-detail .no-photos-message h4 {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  }
+  .album-detail .no-photos-message p {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+  .album-detail .no-photos-message .sad-camera {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+  }
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}/*# sourceMappingURL=album-detail.component.css.map */

@@ -1,0 +1,396 @@
+.album-list {
+  padding: 40px 60px;
+  background: #1a1a1a;
+  min-height: calc(100vh - 120px);
+  color: #e0e0e0;
+  /* Media Queries for Responsiveness */
+}
+.album-list .welcome-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.album-list .welcome-section h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.album-list .welcome-section .instructions {
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: #b3b3b3;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.album-list .add-album-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+  background: #2d2d2d;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  align-items: center;
+}
+.album-list .add-album-form label.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.album-list .add-album-form input {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: calc(100% - 110px);
+  padding: clamp(8px, 2vw, 12px) clamp(10px, 3vw, 20px);
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(14px, 4vw, 16px);
+  background: #3a3a3a;
+  color: #e0e0e0;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+.album-list .add-album-form input:focus {
+  outline: none;
+  background: #444444;
+}
+.album-list .add-album-form input::-moz-placeholder {
+  color: #888888;
+}
+.album-list .add-album-form input::placeholder {
+  color: #888888;
+}
+.album-list .add-album-form button {
+  flex: 0 0 auto;
+  padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 25px);
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: clamp(14px, 4vw, 16px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, background 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.album-list .add-album-form button:disabled {
+  background: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.album-list .add-album-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+}
+.album-list .add-album-form button .button-text {
+  font-weight: 600;
+}
+.album-list .add-album-form button .button-icon {
+  font-size: 18px;
+  color: #1a1a1a;
+}
+.album-list .album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+.album-list .album-grid .album-card {
+  background: #2d2d2d;
+  border: 1px solid #3a3a3a;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+.album-list .album-grid .album-card.editing {
+  background: #333333;
+  border-color: #ffd700;
+}
+.album-list .album-grid .album-card .album-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.album-list .album-grid .album-card .album-link {
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.album-list .album-grid .album-card .album-cover {
+  padding: 15px;
+  background: #3a3a3a;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  transition: background 0.3s ease;
+}
+.album-list .album-grid .album-card .album-cover h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  color: #ffd700;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.album-list .album-grid .album-card .album-cover .photo-count {
+  margin: 0;
+  font-size: clamp(12px, 3vw, 14px);
+  color: #b3b3b3;
+}
+.album-list .album-grid .album-card .created-date {
+  margin: 0;
+  font-size: clamp(11px, 3vw, 13px);
+  color: #95a5a6;
+}
+.album-list .album-grid .album-card .album-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 10px;
+}
+.album-list .album-grid .album-card .edit-btn,
+.album-list .album-grid .album-card .delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(16px, 4vw, 18px);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+.album-list .album-grid .album-card .edit-btn.edit-btn,
+.album-list .album-grid .album-card .delete-btn.edit-btn {
+  color: #ffd700;
+}
+.album-list .album-grid .album-card .edit-btn.edit-btn:hover,
+.album-list .album-grid .album-card .delete-btn.edit-btn:hover {
+  color: #ffca2c;
+  transform: scale(1.2);
+}
+.album-list .album-grid .album-card .edit-btn.delete-btn,
+.album-list .album-grid .album-card .delete-btn.delete-btn {
+  color: #ff4444;
+}
+.album-list .album-grid .album-card .edit-btn.delete-btn:hover,
+.album-list .album-grid .album-card .delete-btn.delete-btn:hover {
+  color: #ff6666;
+  transform: scale(1.2);
+}
+.album-list .album-grid .album-card .edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.album-list .album-grid .album-card .edit-form .edit-input {
+  width: 100%;
+  padding: clamp(8px, 2vw, 10px);
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(14px, 4vw, 16px);
+  background: #444444;
+  color: #e0e0e0;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+.album-list .album-grid .album-card .edit-form .edit-input:focus {
+  outline: none;
+  background: #555555;
+}
+.album-list .album-grid .album-card .edit-form .edit-input::-moz-placeholder {
+  color: #888888;
+}
+.album-list .album-grid .album-card .edit-form .edit-input::placeholder {
+  color: #888888;
+}
+.album-list .album-grid .album-card .edit-form .edit-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.album-list .album-grid .album-card .edit-form .edit-actions .save-btn,
+.album-list .album-grid .album-card .edit-form .edit-actions .cancel-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(16px, 4vw, 18px);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+.album-list .album-grid .album-card .edit-form .edit-actions .save-btn.save-btn,
+.album-list .album-grid .album-card .edit-form .edit-actions .cancel-btn.save-btn {
+  color: #00cc00;
+}
+.album-list .album-grid .album-card .edit-form .edit-actions .save-btn.save-btn:hover,
+.album-list .album-grid .album-card .edit-form .edit-actions .cancel-btn.save-btn:hover {
+  color: #00ff00;
+  transform: scale(1.2);
+}
+.album-list .album-grid .album-card .edit-form .edit-actions .save-btn.cancel-btn,
+.album-list .album-grid .album-card .edit-form .edit-actions .cancel-btn.cancel-btn {
+  color: #ff4444;
+}
+.album-list .album-grid .album-card .edit-form .edit-actions .save-btn.cancel-btn:hover,
+.album-list .album-grid .album-card .edit-form .edit-actions .cancel-btn.cancel-btn:hover {
+  color: #ff6666;
+  transform: scale(1.2);
+}
+.album-list .album-grid .album-card:hover:not(.editing) {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+.album-list .album-grid .album-card:hover:not(.editing) .album-cover {
+  background: #444444;
+}
+.album-list .no-albums {
+  text-align: center;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  color: #b3b3b3;
+  padding: 30px;
+  background: #2d2d2d;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.album-list .no-albums p {
+  margin: 10px 0;
+}
+.album-list .no-albums .hint {
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  color: #95a5a6;
+  font-style: italic;
+}
+.album-list .delete-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.album-list .delete-dialog .dialog-content {
+  background: #2d2d2d;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: clamp(250px, 80vw, 300px);
+}
+.album-list .delete-dialog .dialog-content h2 {
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+.album-list .delete-dialog .dialog-content p {
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+.album-list .delete-dialog .dialog-content .dialog-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.album-list .delete-dialog .dialog-content .dialog-buttons button {
+  padding: 8px 20px;
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: clamp(14px, 4vw, 16px);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.album-list .delete-dialog .dialog-content .dialog-buttons button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+}
+.album-list .delete-dialog .dialog-content .dialog-buttons button:active {
+  transform: scale(0.98);
+}
+@media (max-width: 768px) {
+  .album-list {
+    padding: 20px 30px;
+  }
+  .album-list .welcome-section {
+    margin-bottom: 30px;
+  }
+  .album-list .add-album-form {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+  .album-list .add-album-form input {
+    max-width: 100%;
+    width: 100%;
+  }
+  .album-list .add-album-form button {
+    width: 100%;
+    justify-content: center;
+  }
+  .album-list .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  .album-list .album-card {
+    padding: 15px;
+  }
+  .album-list .album-card .edit-form .edit-input {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .album-list {
+    padding: 15px 20px;
+  }
+  .album-list .welcome-section {
+    margin-bottom: 20px;
+  }
+  .album-list .add-album-form {
+    padding: 8px;
+    gap: 8px;
+  }
+  .album-list .add-album-form input {
+    max-width: 100%;
+    width: 100%;
+  }
+  .album-list .add-album-form button {
+    width: 100%;
+    justify-content: center;
+  }
+  .album-list .album-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .album-list .album-card {
+    padding: 10px;
+  }
+  .album-list .album-card .album-actions,
+  .album-list .album-card .edit-actions {
+    gap: 8px;
+  }
+  .album-list .album-card .edit-form .edit-input {
+    width: 100%;
+  }
+  .album-list .no-albums {
+    padding: 20px;
+  }
+}/*# sourceMappingURL=album-list.component.css.map */

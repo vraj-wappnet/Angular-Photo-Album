@@ -1,0 +1,131 @@
+.navbar {
+  background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.navbar.scrolled {
+  background: #222;
+  padding: 0.8rem 2rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-brand .brand-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+.navbar-brand .brand-link:hover {
+  color: #ffd700;
+  transform: translateY(-2px);
+}
+.navbar-brand .brand-link .brand-icon {
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+.navbar-brand .brand-link:hover .brand-icon {
+  transform: rotate(20deg);
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+}
+.navbar-menu.active {
+  display: flex;
+}
+.navbar-menu .nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+.navbar-menu .nav-link:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffd700;
+  transition: width 0.3s ease;
+}
+.navbar-menu .nav-link:hover {
+  color: #ffd700;
+}
+.navbar-menu .nav-link:hover:after {
+  width: 100%;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: white;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.hamburger:before, .hamburger:after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 3px;
+  background: white;
+  transition: all 0.3s ease;
+}
+.hamburger:before {
+  top: -8px;
+}
+.hamburger:after {
+  bottom: -8px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+  .navbar-brand {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .navbar-menu {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  .navbar-menu.active {
+    display: flex;
+  }
+}/*# sourceMappingURL=navbar.component.css.map */

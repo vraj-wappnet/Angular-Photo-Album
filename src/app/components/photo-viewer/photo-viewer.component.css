@@ -1,0 +1,267 @@
+.viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e0e0e0;
+  z-index: 1000;
+}
+.viewer.slideshow-mode .photo-container {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+}
+.viewer.slideshow-mode .photo-container .photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 0;
+}
+.viewer.slideshow-mode .controls {
+  z-index: 1001;
+}
+.viewer .controls {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  background: rgba(45, 45, 45, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.viewer .controls .back-btn {
+  padding: 8px 12px;
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.2s ease;
+}
+.viewer .controls .back-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.viewer .controls .back-btn:active {
+  transform: scale(0.98);
+}
+.viewer .controls .nav-btn,
+.viewer .controls .slideshow-btn,
+.viewer .controls .favorite-btn {
+  padding: 8px 12px;
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.2s ease;
+}
+.viewer .controls .nav-btn:hover,
+.viewer .controls .slideshow-btn:hover,
+.viewer .controls .favorite-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.viewer .controls .nav-btn:active,
+.viewer .controls .slideshow-btn:active,
+.viewer .controls .favorite-btn:active {
+  transform: scale(0.98);
+}
+.viewer .controls .favorite-btn {
+  font-size: 16px;
+  padding: 8px 12px;
+}
+.viewer .controls .favorite-btn:hover {
+  color: #ffaa00;
+}
+.viewer .controls .reset-btn {
+  padding: 8px 20px;
+  background: linear-gradient(90deg, #ffd700, #ffca2c);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  width: 80px;
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.2s ease;
+}
+.viewer .controls .reset-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ffca2c, #ffd700);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.viewer .controls .reset-btn:active {
+  transform: scale(0.98);
+}
+.viewer .zoom-controls {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+}
+.viewer .zoom-controls .zoom-btn {
+  padding: 6px;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+.viewer .zoom-controls .zoom-btn:hover {
+  color: #ffca2c;
+  border-color: #ffca2c;
+  transform: scale(1.1);
+}
+.viewer .zoom-controls .zoom-btn:active {
+  transform: scale(0.95);
+}
+.viewer .photo-container {
+  position: relative;
+  overflow: hidden;
+  max-width: 400px;
+  max-height: 400px;
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+.viewer .photo-container:active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+.viewer .photo-container .photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.1s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  border-radius: 8px;
+}
+.viewer .photo-container .photo-info {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  padding: 10px;
+  background: rgba(45, 45, 45, 0.8);
+  color: #e0e0e0;
+  border-radius: 6px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.viewer .photo-container .photo-info h2 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  color: #ffd700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.viewer .photo-container .photo-info p {
+  margin: 0;
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.error-message {
+  text-align: center;
+  padding: 30px;
+  background: #2d2d2d;
+  border-radius: 10px;
+  color: #e0e0e0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.error-message p {
+  margin: 0 0 15px;
+  font-size: 1.2rem;
+}
+.error-message a {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+}
+.error-message a:hover {
+  text-decoration: underline;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+.modal .modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal .modal-content .modal-photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 8px;
+}
+.modal .modal-content .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ffd700;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.modal .modal-content .close-btn:hover {
+  background: #ffca2c;
+  transform: scale(1.1);
+}
+.modal .modal-content .close-btn:active {
+  transform: scale(0.95);
+}
+
+.photo-container {
+  cursor: pointer;
+}/*# sourceMappingURL=photo-viewer.component.css.map */

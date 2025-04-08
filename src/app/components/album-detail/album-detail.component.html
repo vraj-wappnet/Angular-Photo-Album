@@ -1,48 +1,58 @@
-<div class="album-detail bg-white py-5" *ngIf="album; else noAlbum">
-  <!-- Header Section -->
-  <header class="header-section container mb-5">
-    <h2 class="album-title display-4 fw-bold text-primary">{{ album.name }}</h2>
-  </header>
-
+<div class="album-detail bg-white py-1" *ngIf="album; else noAlbum">
   <!-- Main Content Grid -->
   <div class="content-grid container">
     <!-- Add Photo Form -->
-    <div class="add-photo-section mb-5">
-      <h3 class="h5 fw-semibold text-dark mb-3">Upload New Image</h3>
-      <div class="add-photo-form card p-4 shadow-sm border-0">
-        <div class="mb-3">
-          <label for="photo-title-input" class="form-label fw-medium"
-            >Caption</label
+    <div class="add-photo-section mb-4">
+      <h3 class="h5 fw-bold text-dark mb-4">Add a New Photo</h3>
+      <div
+        class="add-photo-form bg-white rounded-4 shadow-lg p-4 transition-all"
+      >
+        <div class="mb-4 position-relative">
+          <label
+            for="photo-title-input"
+            class="form-label fw-semibold text-muted mb-1"
+            >Photo Title</label
           >
           <input
             id="photo-title-input"
             type="text"
-            class="form-control rounded-3"
+            class="form-control border-0 bg-light rounded-pill py-3 px-4 shadow-sm"
             [(ngModel)]="newPhotoTitle"
-            placeholder="Image Caption"
+            placeholder="Enter photo title"
             required
           />
+          <span
+            class="input-icon position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+          >
+            <i class="bi bi-type"></i>
+          </span>
         </div>
-        <div class="mb-3">
-          <label for="photo-url-input" class="form-label fw-medium"
-            >Image URL</label
+        <div class="mb-4 position-relative">
+          <label
+            for="photo-url-input"
+            class="form-label fw-semibold text-muted mb-1"
+            >Photo URL</label
           >
           <input
             id="photo-url-input"
             type="url"
-            class="form-control rounded-3"
+            class="form-control border-0 bg-light rounded-pill py-3 px-4 shadow-sm"
             [(ngModel)]="newPhotoUrl"
-            placeholder="Image Link"
+            placeholder="Paste your photo URL"
             required
           />
+          <span
+            class="input-icon position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+          >
+            <i class="bi bi-link-45deg"></i>
+          </span>
         </div>
-
         <button
-          class="btn btn-primary w-100 rounded-pill fw-medium"
+          class="btn btn-primary w-100 rounded-pill py-3 fw-semibold transition-all"
           (click)="addPhoto()"
           [disabled]="!newPhotoTitle || !newPhotoUrl"
         >
-          <span class="button-text">Add Image</span>
+          <span class="button-text">Upload Photo</span>
         </button>
       </div>
     </div>
@@ -70,55 +80,60 @@
       >
         <div *ngFor="let photo of filterPhotos()" class="col">
           <div
-            class="card h-100 photo-card shadow-sm border-0 overflow-hidden"
+            class="photo-item shadow-sm border-0 overflow-hidden bg-white rounded-3 h-100"
             draggable="true"
             (dragstart)="onDragStart($event, photo.id)"
             (dragover)="onDragOver($event)"
             (drop)="onDrop($event, photo.id)"
           >
-            <div class="card-body position-relative p-3">
-              <span
-                class="custom-checkbox position-absolute top-0 start-0 m-3 bg-white rounded-circle"
-                [ngClass]="{ checked: selectedPhotoIds.includes(photo.id) }"
-                (click)="
-                  togglePhotoSelection(photo.id); $event.stopPropagation()
-                "
-              ></span>
-              <a [routerLink]="['/viewer', album.id, photo.id]">
-                <img
-                  [src]="photo.url"
-                  [alt]="photo.title"
-                  class="card-img-top photo-image rounded-3"
-                />
-              </a>
-              <div class="photo-info mt-3">
-                <h6 class="card-title photo-title fw-semibold">
-                  {{ photo.title }}
-                </h6>
-                <p class="card-text text-muted photo-date mb-2">
+            <div class="d-flex align-items-stretch h-100">
+              <!-- Image Section -->
+              <div
+                class="photo-image-container flex-shrink-0 position-relative"
+              >
+                <span
+                  class="custom-checkbox position-absolute top-0 start-0 m-3 bg-white rounded-circle"
+                  [ngClass]="{ checked: selectedPhotoIds.includes(photo.id) }"
+                  (click)="
+                    togglePhotoSelection(photo.id); $event.stopPropagation()
+                  "
+                ></span>
+                <a [routerLink]="['/viewer', album.id, photo.id]">
+                  <img
+                    [src]="photo.url"
+                    [alt]="photo.title"
+                    class="photo-image rounded-start-3"
+                  />
+                </a>
+              </div>
+
+              <!-- Details Section -->
+              <div class="photo-details p-3 flex-grow-1 d-flex flex-column">
+                <h6 class="photo-title fw-semibold mb-2">{{ photo.title }}</h6>
+                <p class="text-muted photo-date mb-2">
                   Detail: {{ photo.dateAdded | date }}
                 </p>
-                <div class="photo-tags" *ngIf="photo.tags?.length">
+                <div class="photo-tags mb-3" *ngIf="photo.tags?.length">
                   <span
                     class="badge bg-info me-1 py-1 px-2 rounded-pill"
                     *ngFor="let tag of photo.tags"
                     >{{ tag }}</span
                   >
                 </div>
-              </div>
-              <div class="button-group mt-3 d-flex gap-2">
-                <button
-                  class="btn btn-sm btn-outline-primary rounded-pill flex-grow-1"
-                  (click)="openEditModal(photo)"
-                >
-                  Edit
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-danger rounded-pill flex-grow-1"
-                  (click)="deletePhoto(photo.id)"
-                >
-                  Delete
-                </button>
+                <div class="button-group mt-auto d-flex gap-2">
+                  <button
+                    class="btn btn-sm btn-outline-primary rounded-pill flex-grow-1"
+                    (click)="openEditModal(photo)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-danger rounded-pill flex-grow-1"
+                    (click)="deletePhoto(photo.id)"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -127,7 +142,7 @@
 
       <!-- Humorous No Photos Message -->
       <ng-template #noPhotos>
-        <div class="text-center rounded-3 shadow-sm">
+        <div class="text-center rounded-3 shadow-sm p-4">
           <h4 class="fw-semibold">No Photos Available</h4>
         </div>
       </ng-template>
@@ -135,56 +150,63 @@
 
     <!-- Edit Modal -->
     <div
-      class="modal fade show d-block"
+      class="modal fade show d-block backdrop-blur"
       *ngIf="showEditModal"
       tabindex="-1"
       (click)="closeEditModal($event)"
     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content shadow-lg border-0 rounded-3">
-          <div class="modal-header bg-light">
-            <h3 class="modal-title h5 fw-semibold">Modify Image Details</h3>
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 rounded-4 overflow-hidden shadow-xl">
+          <div class="modal-header bg-gradient-primary text-white p-4">
+            <h3 class="modal-title h5 fw-bold text-primary">
+              Edit Photo Properties
+            </h3>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              (click)="closeEditModal()"
+            ></button>
           </div>
-          <div class="modal-body p-4">
-            <div class="mb-3">
-              <label for="edit-title" class="form-label fw-medium"
-                >Caption</label
+          <div class="modal-body p-5 bg-light">
+            <div class="mb-4">
+              <label for="edit-title" class="form-label fw-semibold text-dark"
+                >Photo Name</label
               >
               <input
                 id="edit-title"
                 type="text"
-                class="form-control rounded-3"
+                class="form-control form-control-lg border-0 shadow-sm rounded-pill"
                 [(ngModel)]="editTitle"
-                placeholder="Update Caption"
+                placeholder="Enter new photo name"
                 required
               />
             </div>
-            <div class="mb-3">
-              <label for="edit-url" class="form-label fw-medium"
-                >Image URL</label
+            <div class="mb-4">
+              <label for="edit-url" class="form-label fw-semibold text-dark"
+                >Picture Source</label
               >
               <input
                 id="edit-url"
                 type="url"
-                class="form-control rounded-3"
+                class="form-control form-control-lg border-0 shadow-sm rounded-pill"
                 [(ngModel)]="editUrl"
-                placeholder="Update Link"
+                placeholder="Paste image URL"
                 required
               />
             </div>
           </div>
-          <div class="modal-footer bg-light">
+          <div class="modal-footer bg-light p-4 justify-content-between">
             <button
-              class="btn btn-success rounded-pill px-4 fw-medium"
-              (click)="saveEdit()"
-            >
-              Confirm
-            </button>
-            <button
-              class="btn btn-secondary rounded-pill px-4 fw-medium"
+              class="btn btn-outline-dark rounded-pill px-5 fw-semibold"
               (click)="closeEditModal()"
             >
-              Discard
+              Cancel Changes
+            </button>
+            <button
+              class="btn btn-primary rounded-pill px-5 fw-semibold"
+              (click)="saveEdit()"
+            >
+              Apply Updates
             </button>
           </div>
         </div>
@@ -204,3 +226,74 @@
     </a>
   </div>
 </ng-template>
+<style>
+  .photo-item {
+    transition: box-shadow 0.2s ease;
+  }
+
+  .photo-item:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .photo-image-container {
+    width: 150px; /* Adjusted for three columns */
+  }
+
+  .photo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 200px; /* Optional: ensures consistent height */
+  }
+
+  .photo-details {
+    min-height: 200px; /* Optional: matches image height */
+  }
+
+  .bg-gradient-light {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+
+  .header-section {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .header-content {
+    transition: transform 0.3s ease;
+  }
+
+  .header-content:hover {
+    transform: translateY(-5px);
+  }
+
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+
+  .add-photo-form:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25) !important;
+    background: #fff !important;
+  }
+
+  .btn-primary {
+    background: linear-gradient(45deg, #007bff, #00b4db);
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #0098c1);
+  }
+
+  .btn-primary:disabled {
+    background: #adb5bd;
+    opacity: 1;
+  }
+
+  .input-icon {
+    pointer-events: none;
+  }
+</style>
